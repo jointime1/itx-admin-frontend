@@ -19,7 +19,7 @@ const api = ky.create({
       (request) => {
         const token = localStorage.getItem('token')
         if (token) {
-          request.headers.set('Authorization', `${token}`)
+          request.headers.set('Authorization', `Bearer ${token}`)
         }
       },
     ],
@@ -37,29 +37,19 @@ const api = ky.create({
                   throw new Error('Токен не найден')
 
                 if (isRefreshing && refreshPromise) {
-                  await refreshPromise
+                  await refreshPromise.catch(() => null)
                 }
                 else {
                   isRefreshing = true
-                  refreshPromise = refreshToken(token)
+                  refreshPromise = refreshToken(token).finally(() => {
+                    isRefreshing = false
+                    refreshPromise = null
+                  })
                   await refreshPromise
-                  isRefreshing = false
-                  refreshPromise = null
                 }
 
-                const newToken = localStorage.getItem('token')
-                const newRequest = new Request(request.url, {
-                  method: request.method,
-                  headers: request.headers,
-                  body: request.body,
-                  credentials: request.credentials,
-                  mode: request.mode,
-                  cache: request.cache,
-                })
-
-                newRequest.headers.set('Authorization', `${newToken}`)
-
-                return fetch(newRequest)
+                // Повторяем исходный запрос через тот же ky-клиент, чтобы сработали хуки и заголовки
+                return api(request)
               }
               catch (error) {
                 console.error('Не удалось обновить токен:', error)

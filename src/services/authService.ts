@@ -97,10 +97,17 @@ export function isTokenValid(token: string): boolean {
     return false
 
   try {
-    const payload = JSON.parse(atob(token.split('.')[1]))
+    const parts = token.split('.')
+    if (parts.length < 2)
+      return false
+
+    // Decode base64url safely
+    const base64 = parts[1].replace(/-/g, '+').replace(/_/g, '/')
+    const padded = base64.padEnd(base64.length + (4 - (base64.length % 4)) % 4, '=')
+    const payload = JSON.parse(atob(padded))
 
     const expirationTime = payload.exp * 1000
-    return Date.now() < expirationTime
+    return Number.isFinite(expirationTime) && Date.now() < expirationTime
   }
   catch (error) {
     console.error('Ошибка при проверке токена:', error)

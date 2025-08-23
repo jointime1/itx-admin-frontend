@@ -33,7 +33,8 @@ async function handleSubmit(e: Event) {
   e.preventDefault()
 
   // Валидируем форму перед отправкой
-  if (!validate()) {
+  const formIsValid = await validate()
+  if (!formIsValid) {
     return
   }
 
