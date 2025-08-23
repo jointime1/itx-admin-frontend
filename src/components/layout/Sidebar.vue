@@ -22,11 +22,11 @@ function navigateTo(path: string) {
 
 <template>
   <div
-    class="h-screen border-r border-gray-200 transition-all duration-300"
+    class="h-screen border-r border-border transition-all duration-300"
     :class="sidebarWidth"
   >
     <div class="flex flex-col h-full">
-      <div class="flex items-center justify-between p-4 border-b border-gray-200">
+      <div class="flex items-center justify-between p-4 border-b border-border">
         <h1 v-if="!isCollapsed" class="text-xl font-bold">
           Админ-панель
         </h1>
