@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import TelegramAuth from '@/components/TelegramAuth.vue'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -46,6 +47,12 @@ async function handleSubmit(e: Event) {
   catch (error) {
     // Ошибка уже обрабатывается в composable useAuth
     console.error('Login error:', error)
+  }
+}
+
+function handleTelegramAuthSuccess() {
+  if (isAuthenticated.value) {
+    router.push('/dashboard')
   }
 }
 
@@ -108,6 +115,26 @@ onMounted(() => {
           </Button>
         </CardFooter>
       </form>
+
+      <div class="my-4 flex items-center">
+        <div class="flex-grow border-t border-gray-300" />
+        <span class="mx-4 text-sm text-gray-500">ИЛИ</span>
+        <div class="flex-grow border-t border-gray-300" />
+      </div>
+
+      <Card class="w-full max-w-md">
+        <CardHeader class="space-y-1">
+          <CardTitle class="text-xl font-semibold">
+            TG
+          </CardTitle>
+          <CardDescription>
+            Войдите в систему используя ваш Telegram аккаунт
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <TelegramAuth @auth-success="handleTelegramAuthSuccess" />
+        </CardContent>
+      </Card>
     </Card>
   </div>
 </template>

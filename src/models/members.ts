@@ -4,8 +4,8 @@ export interface Member {
   lastName: string
   tg: string
   telegramID: number
-  isMentor: boolean
-  role: MemberRole
+  isMentor?: boolean
+  roles: MemberRole[]
   birthday: string
 }
 
@@ -13,7 +13,7 @@ export interface CreateMemberDto {
   firstName: string
   lastName: string
   tg: string
-  role: MemberRole
+  roles: MemberRole[]
 }
 
 export interface UpdateMemberDto {
@@ -21,18 +21,7 @@ export interface UpdateMemberDto {
   firstName: string
   lastName: string
   tg: string
-  role: MemberRole
+  roles: MemberRole[]
 }
 
-export type MemberRole = 'UNSUBSCRIBER' | 'SUBSCRIBER' | 'MENTOR'
-
-export const MEMBER_ROLE_OPTIONS: Array<{ value: MemberRole, label: string }> = [{
-  value: 'UNSUBSCRIBER',
-  label: 'Ансаб',
-}, {
-  value: 'SUBSCRIBER',
-  label: 'Саб',
-}, {
-  value: 'MENTOR',
-  label: 'Ментор',
-}]
+export type MemberRole = 'UNSUBSCRIBER' | 'SUBSCRIBER' | 'MENTOR' | 'ADMIN' | 'EVENT_MAKER'

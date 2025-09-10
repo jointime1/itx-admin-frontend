@@ -8,9 +8,9 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from '@/components/ui/toast'
+import { useDictionary } from '@/composables/useDictionary'
 import { requiredRule, useFormValidation } from '@/composables/useFormValidation'
 import { toDatetimeLocal } from '@/lib/utils'
-import { PlaceTypeSelectOptions } from '@/models/events'
 import { eventsService } from '@/services/eventsService'
 import { onMounted, ref } from 'vue'
 
@@ -99,6 +99,8 @@ async function handleSubmit(e: Event) {
 function handleCancel() {
   emit('cancel')
 }
+
+const { placeTypes } = useDictionary(['placeTypes'])
 </script>
 
 <template>
@@ -129,7 +131,7 @@ function handleCancel() {
             <SelectValue placeholder="Тип проведения встречи" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem v-for="option in PlaceTypeSelectOptions" :key="option.value" :value="option.value">
+            <SelectItem v-for="option in placeTypes" :key="option.value" :value="option.value">
               {{ option.label }}
             </SelectItem>
           </SelectContent>

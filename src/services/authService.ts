@@ -11,8 +11,13 @@ export interface TokenResponse {
   token: string
 }
 
+export interface TelegramAuthResponse {
+  user: any
+  token: string
+}
+
 export const isLoading = ref(false)
-export const isAuthenticated = ref(!!localStorage.getItem('token'))
+export const isAuthenticated = ref(!!localStorage.getItem('token') || !!localStorage.getItem('tg_token'))
 const { toast } = useToast()
 
 /**
@@ -51,6 +56,51 @@ export async function login(credentials: LoginCredentials): Promise<string | nul
     })
 
     console.error('Login error:', error)
+    return null
+  }
+  finally {
+    isLoading.value = false
+  }
+}
+
+/**
+ * Авторизация через Telegram
+ *
+ * @param token - Telegram токен
+ */
+export async function loginWithTelegram(token: string): Promise<TelegramAuthResponse | null> {
+  try {
+    isLoading.value = true
+    const response = await ky.post('/api/auth/telegram', {
+      json: { token },
+    }).json<TelegramAuthResponse>()
+
+    // Store both tokens if needed
+    localStorage.setItem('token', response.token)
+    localStorage.setItem('tg_token', token)
+    isAuthenticated.value = true
+
+    toast({
+      title: 'Успешный вход',
+      description: 'Вы успешно вошли через Telegram',
+    })
+
+    return response
+  }
+  catch (error) {
+    let errorMessage = 'Произошла ошибка при входе через Telegram'
+
+    if (error instanceof Error) {
+      errorMessage = error.message
+    }
+
+    toast({
+      title: 'Ошибка входа',
+      description: errorMessage,
+      variant: 'destructive',
+    })
+
+    console.error('Telegram login error:', error)
     return null
   }
   finally {
@@ -113,6 +163,7 @@ export function isTokenValid(token: string): boolean {
  */
 export function logout(): void {
   localStorage.removeItem('token')
+  localStorage.removeItem('tg_token')
   isAuthenticated.value = false
 
   toast({
@@ -125,9 +176,11 @@ export function logout(): void {
  * Проверка авторизации
  */
 export function checkAuth(): boolean {
-  const token = localStorage.getItem('token')
+  const jwtToken = localStorage.getItem('token')
+  const tg_token = localStorage.getItem('tg_token')
 
-  if (token && isTokenValid(token)) {
+  // Check either token type
+  if ((jwtToken && isTokenValid(jwtToken)) || tg_token) {
     isAuthenticated.value = true
     return true
   }

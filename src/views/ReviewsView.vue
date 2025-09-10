@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import type { ReviewStatus } from '@/models/reviewOnCommunity'
 import AdminLayout from '@/components/layout/AdminLayout.vue'
 import RevievOnCommunityModal from '@/components/modals/RevievOnCommunityModal.vue'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Pagination, PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, PaginationListItem, PaginationNext, PaginationPrev } from '@/components/ui/pagination'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { useDictionary } from '@/composables/useDictionary'
 import { useModal } from '@/composables/useModal'
-import { REVIEW_STATUS_NAMES } from '@/models/reviewOnCommunity'
 import { reviewOnCommunityService } from '@/services/reviewOnCommunityService'
 import { onMounted, onUnmounted, ref } from 'vue'
 
@@ -29,6 +30,8 @@ function selectReview(reviewId: number) {
   selectedReviewId.value = reviewId
   open()
 }
+
+const { reviewStatuses } = useDictionary<ReviewStatus>(['reviewStatuses'])
 </script>
 
 <template>
@@ -69,7 +72,7 @@ function selectReview(reviewId: number) {
                 </TableCell>
                 <TableCell>{{ review.text }}</TableCell>
                 <TableCell>{{ new Date(review.date).toLocaleDateString() }}</TableCell>
-                <TableCell>{{ REVIEW_STATUS_NAMES[review.status] }}</TableCell>
+                <TableCell>{{ reviewStatuses.find((status) => status.value === review.status)?.label }}</TableCell>
                 <TableCell>
                   <div class="flex items-center justify-end">
                     <Button v-if="review.status !== 'APPROVED'" @click="reviewOnCommunityService.approve(review.id)">

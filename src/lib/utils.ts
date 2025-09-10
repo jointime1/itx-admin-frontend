@@ -29,3 +29,14 @@ export function toDatetimeLocal(isoString: string) {
   // Собираем строку для input[type="datetime-local"]
   return `${year}-${month}-${day}T${hours}:${minutes}`
 }
+
+export function cleanParams(params: Record<string, any>) {
+  return Object.fromEntries(
+    Object.entries(params).filter(([_, v]) => {
+      if (Array.isArray(v)) {
+        return v.length > 0
+      }
+      return v !== undefined && v !== null && v !== ''
+    }),
+  )
+}

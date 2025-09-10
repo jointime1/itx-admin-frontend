@@ -73,10 +73,21 @@ onUnmounted(mentorService.clearPagination)
                   </div>
                 </TableCell>
                 <TableCell class="text-right">
-                  <Button variant="ghost" size="sm" @click="handleEditMentor(mentor)">
+                  <Button
+                    v-permission="'can_edit_admin_mentors'"
+                    variant="ghost"
+                    size="sm"
+                    @click="handleEditMentor(mentor)"
+                  >
                     <Pencil class="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm" class="text-destructive" @click="mentorService.delete(mentor.id)">
+                  <Button
+                    v-permission="'can_edit_admin_mentors'"
+                    variant="ghost"
+                    size="sm"
+                    class="text-destructive"
+                    @click="mentorService.delete(mentor.id)"
+                  >
                     <Trash class="h-4 w-4" />
                   </Button>
                 </TableCell>

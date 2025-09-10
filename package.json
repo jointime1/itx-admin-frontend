@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "start": "vite --host",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
@@ -14,11 +15,13 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@tanstack/vue-query": "^5.87.1",
     "@vueuse/core": "^13.3.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "ky": "^1.7.5",
     "lucide-vue-next": "^0.483.0",
+    "pinia": "^3.0.3",
     "reka-ui": "^2.2.1",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",

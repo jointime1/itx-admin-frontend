@@ -15,15 +15,3 @@ export interface CommunityEvent {
 }
 
 export type PlaceType = 'ONLINE' | 'OFFLINE' | 'HYBRID'
-
-export const PlaceTypeRu: Record<PlaceType, string> = {
-  ONLINE: 'Онлайн',
-  OFFLINE: 'Оффлайн',
-  HYBRID: 'Гибрид',
-}
-
-export const PlaceTypeSelectOptions: Array<{ value: PlaceType, label: string }> = [
-  { value: 'ONLINE', label: 'Онлайн' },
-  { value: 'OFFLINE', label: 'Оффлайн' },
-  { value: 'HYBRID', label: 'Гибрид' },
-]

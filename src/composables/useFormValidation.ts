@@ -14,6 +14,11 @@ export const requiredRule = {
   message: 'Это поле обязательно для заполнения',
 }
 
+export const requiredArrayRule = {
+  validate: (value: any[]) => Array.isArray(value) && value.length > 0,
+  message: 'Необходимо выбрать хотя бы одно значение',
+}
+
 export function useFormValidation<T extends Record<string, any>>(
   initialValues: T,
   validationRules: ValidationRules<T> = {},
