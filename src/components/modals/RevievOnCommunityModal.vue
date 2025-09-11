@@ -21,7 +21,7 @@ function handleCancel() {
 
 <template>
   <Dialog :open="isOpen" @update:open="$emit('update:isOpen', $event)">
-    <DialogContent class="sm:max-w-[700px]">
+    <DialogContent class="sm:max-w-[700px] max-h-full overflow-auto">
       <DialogHeader>
         <DialogTitle>{{ reviewId ? 'Редактирование отзыва' : 'Добавление отзыва' }}</DialogTitle>
       </DialogHeader>

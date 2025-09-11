@@ -22,8 +22,8 @@ export function useAuth() {
 
   // Функция для выхода из системы
   function logout() {
-    logoutService()
     router.push('/login')
+    logoutService()
   }
 
   return {

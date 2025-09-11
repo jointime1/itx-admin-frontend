@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import type { MemberRole } from '@/models/members'
+import type { AcceptableValue } from 'reka-ui'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { requiredRule, useFormValidation } from '@/composables/useFormValidation'
-import { MEMBER_ROLE_OPTIONS } from '@/models/members'
+import { Select, SelectContent, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { useDictionary } from '@/composables/useDictionary'
+import { requiredArrayRule, requiredRule, useFormValidation } from '@/composables/useFormValidation'
 import { memberService } from '@/services/memberService'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps<{
   memberId: number | null
@@ -20,7 +21,7 @@ const validationRules = {
   firstName: [requiredRule],
   lastName: [],
   birthday: [],
-  role: [requiredRule],
+  roles: [requiredArrayRule],
   tg: [requiredRule],
   id: [],
 }
@@ -30,7 +31,7 @@ const { values, errors, touched, validate, handleBlur, isValid, resetForm } = us
   firstName: '',
   lastName: '',
   tg: '',
-  role: 'UNSUBSCRIBER' as MemberRole,
+  roles: ['UNSUBSCRIBER'] as MemberRole[],
   id: props.memberId,
   birthday: '',
   tgId: 0,
@@ -47,7 +48,7 @@ onMounted(async () => {
       values.value.tg = member.tg
       values.value.tgId = member.telegramID
       values.value.birthday = member.birthday
-      values.value.role = member.role
+      values.value.roles = member.roles || []
     }
     isLoading.value = false
   }
@@ -67,7 +68,7 @@ async function handleSubmit(e: Event) {
       firstName: values.value.firstName,
       lastName: values.value.lastName,
       tg: values.value.tg,
-      role: values.value.role,
+      roles: values.value.roles,
       telegramID: values.value.tgId,
       birthday: values.value.birthday,
     })
@@ -78,7 +79,7 @@ async function handleSubmit(e: Event) {
       firstName: values.value.firstName,
       lastName: values.value.lastName,
       tg: values.value.tg,
-      role: values.value.role,
+      roles: values.value.roles,
       telegramID: values.value.tgId,
       birthday: values.value.birthday,
     })
@@ -90,6 +91,22 @@ async function handleSubmit(e: Event) {
 function handleCancel() {
   emit('cancel')
 }
+
+const { memberRoles, memberRolesObject } = useDictionary<MemberRole>(['memberRoles'])
+function handleRolesChange(value: AcceptableValue) {
+  const typedValue = value as MemberRole[]
+  let newValue = [...typedValue]
+  if (typedValue.includes('UNSUBSCRIBER') && values.value.roles.includes('SUBSCRIBER')) {
+    newValue = typedValue.filter(item => item !== 'SUBSCRIBER')
+  }
+  else if (typedValue.includes('SUBSCRIBER') && values.value.roles.includes('UNSUBSCRIBER')) {
+    newValue = typedValue.filter(item => item !== 'UNSUBSCRIBER')
+  }
+
+  values.value.roles = newValue
+}
+const fixedRoles: MemberRole[] = ['MENTOR']
+const userFixedRoles = computed(() => values.value.roles.filter(item => fixedRoles.includes(item)).map(item => memberRolesObject.value[item]))
 </script>
 
 <template>
@@ -138,19 +155,32 @@ function handleCancel() {
       </div>
 
       <div class="space-y-2">
-        <Label for="name">Уровень подписки участника</Label>
-        <Select id="mentor" v-model="values.role">
+        <Label for="roles">Роли участника</Label>
+        <Select id="roles" :model-value="values.roles" multiple @update:model-value="handleRolesChange">
           <SelectTrigger>
-            <SelectValue placeholder="Выберите уровень подписки" />
+            <SelectValue placeholder="Выберите роли участника" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem v-for="mentorItem in MEMBER_ROLE_OPTIONS" :key="mentorItem.value" :value="mentorItem.value">
-              {{ mentorItem.label }}
+            <div v-if="userFixedRoles.length">
+              <SelectLabel>Автоопределяющие роли:</SelectLabel>
+              <div class="px-2 py-1.5 text-sm text-muted-foreground">
+                {{ userFixedRoles.join(', ') }}
+              </div>
+
+              <SelectSeparator />
+            </div>
+            <SelectLabel>Доступные роли:</SelectLabel>
+            <SelectItem
+              v-for="role in memberRoles.filter((item) => !fixedRoles.includes(item.value))"
+              :key="role.value"
+              :value="role.value"
+            >
+              {{ role.label }}
             </SelectItem>
           </SelectContent>
         </Select>
-        <p v-if="touched.firstName && errors.lastName" class="text-sm text-red-500">
-          {{ errors.lastName }}
+        <p v-if="touched.roles && errors.roles" class="text-sm text-red-500">
+          {{ errors.roles }}
         </p>
       </div>
 

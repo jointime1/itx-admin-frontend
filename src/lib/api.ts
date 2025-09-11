@@ -17,9 +17,15 @@ const api = ky.create({
   hooks: {
     beforeRequest: [
       (request) => {
-        const token = localStorage.getItem('token')
-        if (token) {
-          request.headers.set('Authorization', `${token}`)
+        const jwtToken = localStorage.getItem('token')
+        const tg_token = localStorage.getItem('tg_token')
+
+        if (jwtToken) {
+          request.headers.set('Authorization', `Bearer ${jwtToken}`)
+        }
+
+        if (tg_token) {
+          request.headers.set('X-Telegram-User-Token', tg_token)
         }
       },
     ],

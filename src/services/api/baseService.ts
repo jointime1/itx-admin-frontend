@@ -2,6 +2,7 @@ import type { DeepPartial } from '@/lib/utils'
 import type { Pagination, Registry } from '@/models/registry'
 import { useToast } from '@/components/ui/toast'
 import api from '@/lib/api'
+import { cleanParams } from '@/lib/utils'
 import { handleError } from '@/services/errorService'
 import { ref } from 'vue'
 
@@ -41,11 +42,11 @@ export class BaseService<T> {
   search = async (params?: Record<string, any>): Promise<Registry<T>> => {
     try {
       this.isLoading.value = true
-      const searchParams = {
+      const searchParams = cleanParams({
         limit: this.pagination.value.limit,
         offset: this.pagination.value.offset,
         ...params,
-      }
+      })
 
       const response = await api.get(this.basePath, { searchParams }).json<Registry<T>>()
       this.items.value = response

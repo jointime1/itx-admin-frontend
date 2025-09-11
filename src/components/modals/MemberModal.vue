@@ -21,7 +21,7 @@ function handleSaved() {
 
 <template>
   <Dialog :open="isOpen" @update:open="handleClose">
-    <DialogContent class="sm:max-w-[500px]">
+    <DialogContent class="sm:max-w-[500px] max-h-full overflow-auto">
       <DialogHeader>
         <DialogTitle>{{ Boolean(memberId) ? 'Редактирование участника' : 'Добавление участника' }}</DialogTitle>
       </DialogHeader>

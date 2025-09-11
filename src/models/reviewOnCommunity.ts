@@ -18,8 +18,3 @@ export interface ReviewOnCommunityFormData {
 }
 
 export type ReviewStatus = 'DRAFT' | 'APPROVED'
-
-export const REVIEW_STATUS_NAMES: Record<ReviewStatus, string> = {
-  APPROVED: 'Опубликован',
-  DRAFT: 'На модерации',
-}
