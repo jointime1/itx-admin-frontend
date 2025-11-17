@@ -12,6 +12,12 @@ export interface CommunityEvent {
   open: boolean
   videoLink: string
   hosts: Member[]
+  eventTags: EventTag[]
+}
+
+export interface EventTag {
+  id: number
+  name: string
 }
 
 export type PlaceType = 'ONLINE' | 'OFFLINE' | 'HYBRID'

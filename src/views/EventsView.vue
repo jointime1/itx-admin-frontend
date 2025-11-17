@@ -7,6 +7,7 @@ import { Pagination, PaginationEllipsis, PaginationFirst, PaginationLast, Pagina
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useModal } from '@/composables/useModal'
 import { eventsService } from '@/services/eventsService'
+import { Label } from 'itx-ui-kit'
 import { onMounted, onUnmounted, ref } from 'vue'
 import Pencil from '~icons/lucide/pencil'
 import Plus from '~icons/lucide/plus'
@@ -49,6 +50,7 @@ function selectEvent(entityId: number) {
               <TableRow>
                 <TableHead>Дата</TableHead>
                 <TableHead>Название</TableHead>
+                <TableHead>Темы</TableHead>
                 <TableHead>Тип</TableHead>
                 <TableHead>Место</TableHead>
                 <TableHead>Спикеры</TableHead>
@@ -64,6 +66,11 @@ function selectEvent(entityId: number) {
               <TableRow v-for="event in eventsService.items.value.items" :key="event.id">
                 <TableCell>{{ new Date(event.date).toLocaleString() }}</TableCell>
                 <TableCell>{{ event.title }}</TableCell>
+                <TableCell>
+                  <div v-if="event.eventTags.length > 0" class="flex flex-wrap items-center gap-1">
+                    <Label v-for="tag in event.eventTags" :key="tag.id" :title="tag.name">{{ tag.name.length > 30 ? `${tag.name.slice(0, 24)}...` : tag.name }}</Label>
+                  </div>
+                </TableCell>
                 <TableCell>{{ event.eventType }}</TableCell>
                 <TableCell>{{ event.place }}</TableCell>
                 <TableCell>{{ event.hosts?.map((host) => `${host.firstName} ${host.lastName}`).join(', ') }}</TableCell>
