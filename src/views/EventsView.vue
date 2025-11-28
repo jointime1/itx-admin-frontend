@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { Label } from 'itx-ui-kit'
+import { onMounted, onUnmounted, ref } from 'vue'
+import Pencil from '~icons/lucide/pencil'
+import Plus from '~icons/lucide/plus'
+import Trash from '~icons/lucide/trash'
 import AdminLayout from '@/components/layout/AdminLayout.vue'
 import EventsModal from '@/components/modals/EventsModal.vue'
 import { Button } from '@/components/ui/button'
@@ -7,11 +12,6 @@ import { Pagination, PaginationEllipsis, PaginationFirst, PaginationLast, Pagina
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useModal } from '@/composables/useModal'
 import { eventsService } from '@/services/eventsService'
-import { Label } from 'itx-ui-kit'
-import { onMounted, onUnmounted, ref } from 'vue'
-import Pencil from '~icons/lucide/pencil'
-import Plus from '~icons/lucide/plus'
-import Trash from '~icons/lucide/trash'
 
 onMounted(eventsService.search)
 onUnmounted(eventsService.clearPagination)
