@@ -1,6 +1,7 @@
 import type { Permission } from '@/types/permissions'
 import type { Component } from 'vue'
 import { computed, ref } from 'vue'
+import FileText from '~icons/lucide/file-text'
 import Home from '~icons/lucide/home'
 import MessageSquare from '~icons/lucide/message-square'
 import User from '~icons/lucide/user'
@@ -54,6 +55,12 @@ export function useSidebar() {
       path: '/events',
       icon: Users,
       requiredPermission: 'can_view_admin_events',
+    },
+    {
+      title: 'Резюме',
+      path: '/resumes',
+      icon: FileText,
+      requiredPermission: 'can_view_admin_resumes',
     },
   ])
 

@@ -8,6 +8,7 @@ const MembersView = () => import('@/views/MembersView.vue')
 const ReviewsView = () => import('@/views/ReviewsView.vue')
 const EventsView = () => import('@/views/EventsView.vue')
 const MentorsReviewsView = () => import('@/views/MentorsReviewsView.vue')
+const ResumesView = () => import('@/views/ResumesView.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,6 +59,12 @@ const router = createRouter({
       path: '/events',
       name: 'events',
       component: EventsView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/resumes',
+      name: 'resumes',
+      component: ResumesView,
       meta: { requiresAuth: true },
     },
   ],
