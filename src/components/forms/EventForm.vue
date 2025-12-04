@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { CommunityEvent } from '@/models/events'
 import EventHosts from '@/components/forms/event/EventHosts.vue'
+import EventTags from '@/components/forms/event/EventTags.vue'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
@@ -33,6 +34,7 @@ const validationRules = {
   customPlaceType: [],
   videoLink: [],
   id: [],
+  eventTags: [],
 }
 
 // Используем composable для валидации формы
@@ -48,6 +50,7 @@ const { values, errors, touched, validate, isValid } = useFormValidation<Communi
   id: 0,
   customPlaceType: '',
   videoLink: '',
+  eventTags: [],
 }, validationRules)
 
 // Загрузка данных участника при редактировании
@@ -116,6 +119,10 @@ const { placeTypes } = useDictionary(['placeTypes'])
       <div class="space-y-2">
         <Label for="description">Описание встречи</Label>
         <Textarea id="description" v-model="values.description" placeholder="Описание встречи" />
+      </div>
+      <div class="space-y-2">
+        <Label for="even">Теги встречи</Label>
+        <EventTags v-model:event-tags="values.eventTags" />
       </div>
       <div class="space-y-2">
         <Label for="date">Дата встречи</Label>
