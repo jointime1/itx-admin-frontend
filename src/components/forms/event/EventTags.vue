@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { EventTag } from '@/models/events.ts'
 import type { AcceptableInputValue } from 'reka-ui'
+import type { EventTag } from '@/models/events.ts'
+import { computed, onMounted, ref, watch } from 'vue'
 import { Combobox, ComboboxAnchor, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxList } from '@/components/ui/combobox'
 import { TagsInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText } from '@/components/ui/tags-input'
 import { eventTagService } from '@/services/eventTagService.ts'
-import { computed, onMounted, ref, watch } from 'vue'
 
 const props = defineProps<{
   eventTags: EventTag[]

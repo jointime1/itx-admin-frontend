@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { useSidebar } from '@/composables/useSidebar'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import ChevronLeft from '~icons/lucide/chevron-left'
 import ChevronRight from '~icons/lucide/chevron-right'
+import { Button } from '@/components/ui/button'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { useSidebar } from '@/composables/useSidebar'
 
 const { isCollapsed, sidebarItems, toggleSidebar } = useSidebar()
 const route = useRoute()

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import type { ReviewOnCommunityFormData } from '@/models/reviewOnCommunity'
+import { onMounted, ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { requiredRule, useFormValidation } from '@/composables/useFormValidation'
 import { formatDateToInput } from '@/lib/utils'
 import { reviewOnCommunityService } from '@/services/reviewOnCommunityService'
-import { onMounted, ref } from 'vue'
 import { toast } from '../ui/toast'
 
 const props = defineProps<{

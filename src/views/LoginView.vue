@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import TelegramAuth from '@/components/TelegramAuth.vue'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,8 +15,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/composables/useAuth'
 import { requiredRule, useFormValidation } from '@/composables/useFormValidation'
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 
 const { isLoading, isAuthenticated, login } = useAuth()
 const validationRules = {

@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import type { Mentor } from '@/models/mentors'
+import { onMounted, onUnmounted, ref } from 'vue'
+import Pencil from '~icons/lucide/pencil'
+import Trash from '~icons/lucide/trash'
 import AdminLayout from '@/components/layout/AdminLayout.vue'
 import MentorModal from '@/components/modals/MentorModal.vue'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Pagination, PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, PaginationListItem, PaginationNext, PaginationPrev } from '@/components/ui/pagination'
+
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { mentorService } from '@/services/mentorService'
-import { onMounted, onUnmounted, ref } from 'vue'
-
-import Pencil from '~icons/lucide/pencil'
-import Trash from '~icons/lucide/trash'
 
 const isModalOpen = ref(false)
 const selectedMentor = ref<Mentor | null>(null)

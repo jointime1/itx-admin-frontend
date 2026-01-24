@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import type { ReviewStatus } from '@/models/reviewOnCommunity'
+import { onMounted, onUnmounted, ref } from 'vue'
+import Pencil from '~icons/lucide/pencil'
+import Plus from '~icons/lucide/plus'
+import Trash from '~icons/lucide/trash'
 import AdminLayout from '@/components/layout/AdminLayout.vue'
 import RevievOnCommunityModal from '@/components/modals/RevievOnCommunityModal.vue'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Pagination, PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, PaginationListItem, PaginationNext, PaginationPrev } from '@/components/ui/pagination'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
 import { useDictionary } from '@/composables/useDictionary'
 import { useModal } from '@/composables/useModal'
 import { reviewOnCommunityService } from '@/services/reviewOnCommunityService'
-import { onMounted, onUnmounted, ref } from 'vue'
-
-import Pencil from '~icons/lucide/pencil'
-import Plus from '~icons/lucide/plus'
-import Trash from '~icons/lucide/trash'
 
 onMounted(reviewOnCommunityService.search)
 onUnmounted(reviewOnCommunityService.clearPagination)

@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { ref, watchEffect } from 'vue'
 import AdminLayout from '@/components/layout/AdminLayout.vue'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { usePermissions } from '@/composables/usePermissions'
 import { memberService } from '@/services/memberService'
 import { mentorService } from '@/services/mentorService'
-import { ref, watchEffect } from 'vue'
 
 const mentorsCount = ref(0)
 const membersCount = ref(0)

@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import { loginWithTelegram } from '@/services/authService'
-import { onMounted, ref } from 'vue'
 
 const emit = defineEmits<{
   (e: 'authSuccess'): void

@@ -1,7 +1,7 @@
+import ky from 'ky'
 import { useToast } from '@/components/ui/toast'
 import router from '@/router'
 import { isAuthenticated, logout, refreshToken } from '@/services/authService'
-import ky from 'ky'
 
 // Флаг для отслеживания процесса обновления токена
 let isRefreshing = false

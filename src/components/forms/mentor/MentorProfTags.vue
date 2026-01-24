@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { ProfTag, ProfTagFormData } from '@/models/mentors'
 import type { AcceptableInputValue } from 'reka-ui'
+import type { ProfTag, ProfTagFormData } from '@/models/mentors'
+import { computed, onMounted, ref } from 'vue'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Combobox, ComboboxAnchor, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxList } from '@/components/ui/combobox'
 import { TagsInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText } from '@/components/ui/tags-input'
 import { profTagService } from '@/services/profTagService'
-import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps<{
   profTags: ProfTagFormData[]

@@ -1,6 +1,6 @@
-import { useToast } from '@/components/ui/toast'
 import ky from 'ky'
 import { ref } from 'vue'
+import { useToast } from '@/components/ui/toast'
 
 export interface LoginCredentials {
   login: string
