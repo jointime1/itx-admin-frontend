@@ -5,12 +5,17 @@ export interface CommunityEvent {
   title: string
   description: string
   date: string
+  timezone: string
   placeType: PlaceType
   place: string
   customPlaceType: string
   eventType: string
   open: boolean
   videoLink: string
+  isRepeating: boolean
+  repeatPeriod?: string
+  repeatInterval?: number
+  repeatEndDate?: string
   hosts: Member[]
   eventTags: EventTag[]
 }

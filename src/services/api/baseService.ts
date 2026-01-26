@@ -1,10 +1,10 @@
 import type { DeepPartial } from '@/lib/utils'
 import type { Pagination, Registry } from '@/models/registry'
+import { ref } from 'vue'
 import { useToast } from '@/components/ui/toast'
 import api from '@/lib/api'
 import { cleanParams } from '@/lib/utils'
 import { handleError } from '@/services/errorService'
-import { ref } from 'vue'
 
 /**
  * Базовый сервис взаимодействяи сущностей с бэкендом.

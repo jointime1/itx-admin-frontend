@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { MemberRole } from '@/models/members'
 import type { AcceptableValue } from 'reka-ui'
+import type { MemberRole } from '@/models/members'
+import { computed, onMounted, ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -8,7 +9,6 @@ import { Select, SelectContent, SelectItem, SelectLabel, SelectSeparator, Select
 import { useDictionary } from '@/composables/useDictionary'
 import { requiredArrayRule, requiredRule, useFormValidation } from '@/composables/useFormValidation'
 import { memberService } from '@/services/memberService'
-import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps<{
   memberId: number | null

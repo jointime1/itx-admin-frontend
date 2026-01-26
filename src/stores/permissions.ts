@@ -1,6 +1,6 @@
-import { usePermissions } from '@/composables/usePermissions'
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
+import { usePermissions } from '@/composables/usePermissions'
 
 export const usePermissionsStore = defineStore('permissions', () => {
   // подключаем composable с vue-query

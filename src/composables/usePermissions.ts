@@ -1,8 +1,8 @@
 import type { Permission } from '@/types/permissions'
-import api from '@/lib/api'
-
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
+
 import { computed } from 'vue'
+import api from '@/lib/api'
 
 export function usePermissions() {
   const queryClient = useQueryClient()

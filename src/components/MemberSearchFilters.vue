@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { MemberRole } from '@/models/members'
+import { reactive } from 'vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useDictionary } from '@/composables/useDictionary'
-import { reactive } from 'vue'
 import Card from './ui/card/Card.vue'
 
 interface MemberSearchFilters {

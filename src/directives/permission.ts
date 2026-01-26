@@ -1,7 +1,7 @@
-import type { Permission } from '@/types/permissions'
 import type { Directive, DirectiveBinding } from 'vue'
-import { usePermissionsStore } from '@/stores/permissions'
+import type { Permission } from '@/types/permissions'
 import { watch } from 'vue'
+import { usePermissionsStore } from '@/stores/permissions'
 
 export const permissionDirective: Directive<HTMLElement, Permission | Permission[]> = {
   mounted(el, binding) {
