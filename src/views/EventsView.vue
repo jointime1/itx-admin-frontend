@@ -28,6 +28,20 @@ function selectEvent(entityId: number) {
   selectedEventId.value = entityId
   open()
 }
+
+function formatEventDate(dateString: string): string {
+  const utcDate = new Date(dateString)
+
+  // Конвертируем в МСК (UTC+3)
+  return utcDate.toLocaleString('ru-RU', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'Europe/Moscow',
+  })
+}
 </script>
 
 <template>
@@ -66,7 +80,7 @@ function selectEvent(entityId: number) {
               <TableRow v-for="event in eventsService.items.value.items" :key="event.id">
                 <TableCell>
                   <div class="flex flex-col">
-                    <span>{{ new Date(event.date).toLocaleString() }} ({{ event.timezone || 'UTC' }})</span>
+                    <span>{{ formatEventDate(event.date) }} (МСК)</span>
                     <span v-if="event.isRepeating && event.repeatPeriod" class="text-xs text-muted-foreground italic">
                       Повторяется
                     </span>

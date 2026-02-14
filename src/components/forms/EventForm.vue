@@ -115,6 +115,29 @@ const repeatEndTypeModel = computed({
   },
 })
 
+function convertFromUTC(utcDateString: string, timezone: string): string {
+  const utcDate = new Date(utcDateString)
+
+  let timezoneOffsetHours = 0
+  if (timezone !== 'UTC') {
+    const match = timezone.match(/UTC([+-])(\d+)/)
+    if (match) {
+      const sign = match[1] === '+' ? 1 : -1
+      timezoneOffsetHours = sign * Number.parseInt(match[2], 10)
+    }
+  }
+
+  const eventTime = new Date(utcDate.getTime() + timezoneOffsetHours * 60 * 60 * 1000)
+
+  const year = eventTime.getUTCFullYear()
+  const month = String(eventTime.getUTCMonth() + 1).padStart(2, '0')
+  const day = String(eventTime.getUTCDate()).padStart(2, '0')
+  const hour = String(eventTime.getUTCHours()).padStart(2, '0')
+  const minute = String(eventTime.getUTCMinutes()).padStart(2, '0')
+
+  return `${year}-${month}-${day}T${hour}:${minute}`
+}
+
 // Загрузка данных участника при редактировании
 onMounted(async () => {
   if (props.eventId) {
@@ -122,8 +145,10 @@ onMounted(async () => {
     if (event) {
       values.value = {
         ...event,
-        date: toDatetimeLocal(event.date),
-        repeatEndDate: event.repeatEndDate ? toDatetimeLocal(event.repeatEndDate) : undefined,
+        date: convertFromUTC(event.date, event.timezone || 'UTC'),
+        repeatEndDate: event.repeatEndDate
+          ? convertFromUTC(event.repeatEndDate, event.timezone || 'UTC')
+          : undefined,
       }
       // Устанавливаем тип окончания повторений
       if (event.repeatEndDate) {
@@ -145,9 +170,29 @@ async function handleSubmit(e: Event) {
   }
 
   try {
+    const convertToUTC = (datetimeLocal: string, timezone: string): string => {
+      const [datePart, timePart] = datetimeLocal.split('T')
+      const [year, month, day] = datePart.split('-').map(Number)
+      const [hour, minute] = timePart.split(':').map(Number)
+
+      const utcDate = new Date(Date.UTC(year, month - 1, day, hour, minute))
+
+      let timezoneOffsetHours = 0
+      if (timezone !== 'UTC') {
+        const match = timezone.match(/UTC([+-])(\d+)/)
+        if (match) {
+          const sign = match[1] === '+' ? 1 : -1
+          timezoneOffsetHours = sign * Number.parseInt(match[2], 10)
+        }
+      }
+
+      const utcTime = new Date(utcDate.getTime() - timezoneOffsetHours * 60 * 60 * 1000)
+      return utcTime.toISOString()
+    }
+
     const eventData: any = {
       ...values.value,
-      date: new Date(values.value.date).toISOString(),
+      date: convertToUTC(values.value.date, values.value.timezone),
     }
 
     // Очищаем поля повторений, если событие не повторяющееся
@@ -162,7 +207,7 @@ async function handleSubmit(e: Event) {
         eventData.repeatEndDate = null
       }
       else if (repeatEndType.value === 'date' && values.value.repeatEndDate) {
-        eventData.repeatEndDate = new Date(values.value.repeatEndDate).toISOString()
+        eventData.repeatEndDate = convertToUTC(values.value.repeatEndDate, values.value.timezone)
       }
     }
 
