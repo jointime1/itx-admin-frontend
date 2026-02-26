@@ -64,7 +64,14 @@ function selectEvent(entityId: number) {
                 </TableCell>
               </TableRow>
               <TableRow v-for="event in eventsService.items.value.items" :key="event.id">
-                <TableCell>{{ new Date(event.date).toLocaleString() }}</TableCell>
+                <TableCell>
+                  <div class="flex flex-col">
+                    <span>{{ new Date(event.date).toLocaleString() }} ({{ event.timezone || 'UTC' }})</span>
+                    <span v-if="event.isRepeating && event.repeatPeriod" class="text-xs text-muted-foreground italic">
+                      Повторяется
+                    </span>
+                  </div>
+                </TableCell>
                 <TableCell>{{ event.title }}</TableCell>
                 <TableCell>
                   <div v-if="event.eventTags.length > 0" class="flex flex-wrap items-center gap-1">
