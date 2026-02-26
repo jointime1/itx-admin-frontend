@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { Member } from '@/models/members'
 import type { AcceptableInputValue } from 'reka-ui'
+import type { Member } from '@/models/members'
+import { asyncComputed, useDebounce } from '@vueuse/core'
+import { computed, ref } from 'vue'
 import { Combobox, ComboboxAnchor, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxList } from '@/components/ui/combobox'
 import { TagsInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText } from '@/components/ui/tags-input'
 import { memberService } from '@/services/memberService'
-import { asyncComputed, useDebounce } from '@vueuse/core'
-import { computed, ref } from 'vue'
 
 const props = defineProps<{
   hosts: Member[]

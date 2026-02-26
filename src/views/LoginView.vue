@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import TelegramAuth from '@/components/TelegramAuth.vue'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,8 +15,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/composables/useAuth'
 import { requiredRule, useFormValidation } from '@/composables/useFormValidation'
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 
 const { isLoading, isAuthenticated, login } = useAuth()
 const validationRules = {
@@ -83,10 +83,10 @@ onMounted(() => {
               v-model="values.login"
               type="text"
               placeholder="Введите ваш логин"
-              :class="{ 'border-red-500': touched.login && errors.login }"
+              :class="{ 'border-destructive': touched.login && errors.login }"
               @blur="handleBlur('login')"
             />
-            <p v-if="touched.login && errors.login" class="text-sm text-red-500">
+            <p v-if="touched.login && errors.login" class="text-sm text-destructive">
               {{ errors.login }}
             </p>
           </div>
@@ -97,10 +97,10 @@ onMounted(() => {
               v-model="values.password"
               type="password"
               placeholder="Введите ваш пароль"
-              :class="{ 'border-red-500': touched.password && errors.password }"
+              :class="{ 'border-destructive': touched.password && errors.password }"
               @blur="handleBlur('password')"
             />
-            <p v-if="touched.password && errors.password" class="text-sm text-red-500">
+            <p v-if="touched.password && errors.password" class="text-sm text-destructive">
               {{ errors.password }}
             </p>
           </div>
@@ -117,9 +117,9 @@ onMounted(() => {
       </form>
 
       <div class="my-4 flex items-center">
-        <div class="flex-grow border-t border-gray-300" />
-        <span class="mx-4 text-sm text-gray-500">ИЛИ</span>
-        <div class="flex-grow border-t border-gray-300" />
+        <div class="flex-grow border-t border-border" />
+        <span class="mx-4 text-sm text-muted-foreground">ИЛИ</span>
+        <div class="flex-grow border-t border-border" />
       </div>
 
       <Card class="w-full max-w-md">

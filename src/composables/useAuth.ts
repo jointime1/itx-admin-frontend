@@ -1,6 +1,6 @@
 import type { LoginCredentials } from '@/services/authService'
-import { checkAuth, isAuthenticated, isLoading, login as loginService, logout as logoutService } from '@/services/authService'
 import { useRouter } from 'vue-router'
+import { checkAuth, isAuthenticated, isLoading, login as loginService, logout as logoutService } from '@/services/authService'
 
 export function useAuth() {
   const router = useRouter()

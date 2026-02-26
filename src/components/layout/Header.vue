@@ -1,18 +1,19 @@
 <script setup lang="ts">
+import { Typography } from 'itx-ui-kit'
+import { LogOut, User } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import ThemeToggle from '@/components/ui/theme-toggle.vue'
 import { useAuth } from '@/composables/useAuth'
-import { LogOut, User } from 'lucide-vue-next'
 
 const { logout } = useAuth()
 </script>
 
 <template>
-  <header class="bg-card border-b border-border h-16 flex items-center px-6 justify-between">
+  <header class="sticky top-0 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border h-16 flex items-center px-6 justify-between">
     <div>
-      <h1 class="text-xl font-bold">
+      <Typography variant="h4" as="h1">
         IT-ХОЗЯЕВА
-      </h1>
+      </Typography>
     </div>
 
     <div class="flex items-center space-x-4">

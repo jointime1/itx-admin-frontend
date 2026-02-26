@@ -1,19 +1,20 @@
 <script setup lang="ts">
+import { Typography } from 'itx-ui-kit'
+import { onMounted, onUnmounted, ref } from 'vue'
+import Pencil from '~icons/lucide/pencil'
+import Plus from '~icons/lucide/plus'
+import Trash from '~icons/lucide/trash'
 import AdminLayout from '@/components/layout/AdminLayout.vue'
 import MemberSearchFilters from '@/components/MemberSearchFilters.vue'
 import MemberModal from '@/components/modals/MemberModal.vue'
 import MentorModal from '@/components/modals/MentorModal.vue'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+
 import { Pagination, PaginationEllipsis, PaginationFirst, PaginationList, PaginationListItem, PaginationNext, PaginationPrev } from '@/components/ui/pagination'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useDictionary } from '@/composables/useDictionary'
 import { memberService } from '@/services/memberService'
-
-import { onMounted, onUnmounted, ref } from 'vue'
-import Pencil from '~icons/lucide/pencil'
-import Plus from '~icons/lucide/plus'
-import Trash from '~icons/lucide/trash'
 
 const isModalOpen = ref(false)
 const currentMemberId = ref<number | null>(null)
@@ -59,9 +60,9 @@ onUnmounted(memberService.clearPagination)
   <AdminLayout>
     <div class="space-y-6">
       <div class="flex justify-between items-center">
-        <h1 class="text-3xl font-bold">
+        <Typography variant="h2" as="h1">
           Участники сообщества
-        </h1>
+        </Typography>
         <Button
           v-permission="'can_edit_admin_members'"
           @click="openAddModal"

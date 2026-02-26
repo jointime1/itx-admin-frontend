@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { MemberRole } from '@/models/members'
 import type { AcceptableValue } from 'reka-ui'
+import type { MemberRole } from '@/models/members'
+import { computed, onMounted, ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -8,7 +9,6 @@ import { Select, SelectContent, SelectItem, SelectLabel, SelectSeparator, Select
 import { useDictionary } from '@/composables/useDictionary'
 import { requiredArrayRule, requiredRule, useFormValidation } from '@/composables/useFormValidation'
 import { memberService } from '@/services/memberService'
-import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps<{
   memberId: number | null
@@ -118,10 +118,10 @@ const userFixedRoles = computed(() => values.value.roles.filter(item => fixedRol
           id="firstName"
           v-model="values.firstName"
           placeholder="Введите имя участника"
-          :class="{ 'border-red-500': touched.firstName && errors.firstName }"
+          :class="{ 'border-destructive': touched.firstName && errors.firstName }"
           @blur="handleBlur('firstName')"
         />
-        <p v-if="touched.firstName && errors.firstName" class="text-sm text-red-500">
+        <p v-if="touched.firstName && errors.firstName" class="text-sm text-destructive">
           {{ errors.firstName }}
         </p>
       </div>
@@ -132,10 +132,10 @@ const userFixedRoles = computed(() => values.value.roles.filter(item => fixedRol
           id="lastName"
           v-model="values.lastName"
           placeholder="Введите имя участника"
-          :class="{ 'border-red-500': touched.lastName && errors.lastName }"
+          :class="{ 'border-destructive': touched.lastName && errors.lastName }"
           @blur="handleBlur('lastName')"
         />
-        <p v-if="touched.firstName && errors.lastName" class="text-sm text-red-500">
+        <p v-if="touched.firstName && errors.lastName" class="text-sm text-destructive">
           {{ errors.lastName }}
         </p>
       </div>
@@ -146,10 +146,10 @@ const userFixedRoles = computed(() => values.value.roles.filter(item => fixedRol
           v-model="values.birthday"
           type="date"
           placeholder="Введите ДР"
-          :class="{ 'border-red-500': touched.lastName && errors.birthday }"
+          :class="{ 'border-destructive': touched.lastName && errors.birthday }"
           @blur="handleBlur('birthday')"
         />
-        <p v-if="touched.firstName && errors.birthday" class="text-sm text-red-500">
+        <p v-if="touched.firstName && errors.birthday" class="text-sm text-destructive">
           {{ errors.birthday }}
         </p>
       </div>
@@ -179,7 +179,7 @@ const userFixedRoles = computed(() => values.value.roles.filter(item => fixedRol
             </SelectItem>
           </SelectContent>
         </Select>
-        <p v-if="touched.roles && errors.roles" class="text-sm text-red-500">
+        <p v-if="touched.roles && errors.roles" class="text-sm text-destructive">
           {{ errors.roles }}
         </p>
       </div>
@@ -190,10 +190,10 @@ const userFixedRoles = computed(() => values.value.roles.filter(item => fixedRol
           id="tg"
           v-model="values.tg"
           placeholder="Введите username в Telegram (например, @username)"
-          :class="{ 'border-red-500': touched.tg && errors.tg }"
+          :class="{ 'border-destructive': touched.tg && errors.tg }"
           @blur="handleBlur('tg')"
         />
-        <p v-if="touched.tg && errors.tg" class="text-sm text-red-500">
+        <p v-if="touched.tg && errors.tg" class="text-sm text-destructive">
           {{ errors.tg }}
         </p>
       </div>

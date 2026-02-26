@@ -1,14 +1,28 @@
 <script setup lang="ts">
-import { Toaster } from '@/components/ui/toast'
 import { RouterView } from 'vue-router'
+import { Toaster } from '@/components/ui/toast'
 </script>
 
 <template>
-  <RouterView />
+  <RouterView v-slot="{ Component }">
+    <Transition name="page-fade" mode="out-in">
+      <component :is="Component" />
+    </Transition>
+  </RouterView>
   <Toaster />
 </template>
 
 <style scoped>
+.page-fade-enter-active,
+.page-fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.page-fade-enter-from,
+.page-fade-leave-to {
+  opacity: 0;
+}
+
 header {
   line-height: 1.5;
   max-height: 100vh;

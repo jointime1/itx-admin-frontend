@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { CommunityEvent } from '@/models/events'
+import { onMounted, ref } from 'vue'
 import EventHosts from '@/components/forms/event/EventHosts.vue'
 import EventTags from '@/components/forms/event/EventTags.vue'
 import { Button } from '@/components/ui/button'
@@ -13,7 +14,6 @@ import { useDictionary } from '@/composables/useDictionary'
 import { requiredRule, useFormValidation } from '@/composables/useFormValidation'
 import { toDatetimeLocal } from '@/lib/utils'
 import { eventsService } from '@/services/eventsService'
-import { onMounted, ref } from 'vue'
 
 const props = defineProps<{
   eventId?: number
@@ -112,7 +112,7 @@ const { placeTypes } = useDictionary(['placeTypes'])
       <div class="space-y-2">
         <Label for="title">Название встречи</Label>
         <Input id="title" v-model="values.title" type="text" placeholder="Название встречи" />
-        <p v-if="touched.title && errors.title" class="text-sm text-red-500">
+        <p v-if="touched.title && errors.title" class="text-sm text-destructive">
           {{ errors.title }}
         </p>
       </div>
@@ -127,7 +127,7 @@ const { placeTypes } = useDictionary(['placeTypes'])
       <div class="space-y-2">
         <Label for="date">Дата встречи</Label>
         <Input id="date" v-model="values.date" type="datetime-local" placeholder="Введите дату встречи" />
-        <p v-if="touched.date && errors.date" class="text-sm text-red-500">
+        <p v-if="touched.date && errors.date" class="text-sm text-destructive">
           {{ errors.date }}
         </p>
       </div>
@@ -143,7 +143,7 @@ const { placeTypes } = useDictionary(['placeTypes'])
             </SelectItem>
           </SelectContent>
         </Select>
-        <p v-if="touched.placeType && errors.placeType" class="text-sm text-red-500">
+        <p v-if="touched.placeType && errors.placeType" class="text-sm text-destructive">
           {{ errors.placeType }}
         </p>
       </div>
@@ -154,7 +154,7 @@ const { placeTypes } = useDictionary(['placeTypes'])
       <div class="space-y-2">
         <Label for="place">Место проведения встречи</Label>
         <Textarea id="place" v-model="values.place" placeholder="Ссылка/адрес" />
-        <p v-if="touched.place && errors.place" class="text-sm text-red-500">
+        <p v-if="touched.place && errors.place" class="text-sm text-destructive">
           {{ errors.place }}
         </p>
       </div>
@@ -164,7 +164,7 @@ const { placeTypes } = useDictionary(['placeTypes'])
           id="eventType" v-model="values.eventType" type="text"
           placeholder="Тип встречи: созвон/митап/воркшоп и тд"
         />
-        <p v-if="touched.eventType && errors.eventType" class="text-sm text-red-500">
+        <p v-if="touched.eventType && errors.eventType" class="text-sm text-destructive">
           {{ errors.eventType }}
         </p>
       </div>

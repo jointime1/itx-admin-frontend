@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import type { ResumeFilter, WorkFormat } from '@/models/resume'
+import { Typography } from 'itx-ui-kit'
+import { onMounted, reactive, ref } from 'vue'
+import Download from '~icons/lucide/download'
+import RefreshCw from '~icons/lucide/refresh-cw'
+import Search from '~icons/lucide/search'
 import AdminLayout from '@/components/layout/AdminLayout.vue'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { resumeService } from '@/services/resumeService'
-import { onMounted, reactive, ref } from 'vue'
-import Download from '~icons/lucide/download'
-import RefreshCw from '~icons/lucide/refresh-cw'
-import Search from '~icons/lucide/search'
 
 const filters = reactive<ResumeFilter>({
   workFormat: '',
@@ -61,9 +62,9 @@ onMounted(() => resumeService.searchWithFilters(filters))
     <div class="space-y-6">
       <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 class="text-3xl font-bold">
+          <Typography variant="h2" as="h1">
             Резюме пользователей
-          </h1>
+          </Typography>
           <p class="text-muted-foreground">
             Просматривайте загруженные резюме, фильтруйте их и выгружайте архивом.
           </p>
@@ -86,7 +87,7 @@ onMounted(() => resumeService.searchWithFilters(filters))
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="space-y-2">
               <label class="text-sm font-medium text-muted-foreground">Формат работы</label>
-              <select v-model="filters.workFormat" class="w-full border rounded-md px-3 py-2">
+              <select v-model="filters.workFormat" class="w-full border border-input rounded-xl bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
                 <option v-for="option in workFormatOptions" :key="option.value" :value="option.value">
                   {{ option.label }}
                 </option>

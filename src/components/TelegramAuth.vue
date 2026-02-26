@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import { loginWithTelegram } from '@/services/authService'
-import { onMounted, ref } from 'vue'
 
 const emit = defineEmits<{
   (e: 'authSuccess'): void
@@ -45,7 +45,7 @@ function openTelegramBot() {
     <Button :disabled="isLoading" @click="openTelegramBot">
       {{ isLoading ? 'Authenticating...' : 'Зайти через ТГ' }}
     </Button>
-    <div v-if="isLoading" class="loading mt-2 text-sm text-gray-600">
+    <div v-if="isLoading" class="loading mt-2 text-sm text-muted-foreground">
       Authenticating...
     </div>
   </div>

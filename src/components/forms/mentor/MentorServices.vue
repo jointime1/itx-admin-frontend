@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { ServiceFormData } from '@/models/mentors'
+import { Plus, Trash2 } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Textarea } from '@/components/ui/textarea'
-import { Plus, Trash2 } from 'lucide-vue-next'
 
 const props = defineProps<{
   services: ServiceFormData[]
@@ -77,7 +77,7 @@ function removeService(index: number) {
           </TableRow>
         </TableBody>
       </Table>
-      <div v-else class="text-center py-4 text-gray-500">
+      <div v-else class="text-center py-4 text-muted-foreground">
         Нет добавленных услуг
       </div>
     </CardContent>

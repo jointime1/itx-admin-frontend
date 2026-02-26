@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { useSidebar } from '@/composables/useSidebar'
+import { Typography } from 'itx-ui-kit'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import ChevronLeft from '~icons/lucide/chevron-left'
 import ChevronRight from '~icons/lucide/chevron-right'
+import { Button } from '@/components/ui/button'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { useSidebar } from '@/composables/useSidebar'
 
 const { isCollapsed, sidebarItems, toggleSidebar } = useSidebar()
 const route = useRoute()
@@ -22,14 +23,14 @@ function navigateTo(path: string) {
 
 <template>
   <div
-    class="h-screen border-r border-gray-200 transition-all duration-300"
+    class="h-screen border-r border-border bg-primary text-primary-foreground transition-all duration-300"
     :class="sidebarWidth"
   >
     <div class="flex flex-col h-full">
-      <div class="flex items-center justify-between p-4 border-b border-gray-200">
-        <h1 v-if="!isCollapsed" class="text-xl font-bold">
+      <div class="flex items-center justify-between p-4 border-b border-border/20">
+        <Typography v-if="!isCollapsed" variant="h4" as="h1">
           Админ-панель
-        </h1>
+        </Typography>
         <Button variant="ghost" size="icon" @click="toggleSidebar">
           <ChevronRight v-if="isCollapsed" class="h-5 w-5" />
           <ChevronLeft v-else class="h-5 w-5" />
@@ -44,9 +45,9 @@ function navigateTo(path: string) {
                 <TooltipTrigger as-child>
                   <Button
                     variant="ghost"
-                    class="w-full justify-center py-2"
+                    class="w-full justify-center py-2 text-primary-foreground hover:bg-accent hover:text-accent-foreground"
                     :class="[
-                      route.path.startsWith(item.path) ? 'bg-accent' : '',
+                      route.path.startsWith(item.path) ? 'bg-accent text-accent-foreground' : '',
                     ]"
                     @click="navigateTo(item.path)"
                   >
@@ -61,9 +62,9 @@ function navigateTo(path: string) {
               <Button
                 v-else
                 variant="ghost"
-                class="w-full justify-start py-2"
+                class="w-full justify-start py-2 text-primary-foreground hover:bg-accent hover:text-accent-foreground"
                 :class="[
-                  route.path.startsWith(item.path) ? 'bg-accent' : '',
+                  route.path.startsWith(item.path) ? 'bg-accent text-accent-foreground' : '',
                 ]"
                 @click="navigateTo(item.path)"
               >

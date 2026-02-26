@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { Typography } from 'itx-ui-kit'
+import { onMounted, onUnmounted, ref } from 'vue'
+import Pencil from '~icons/lucide/pencil'
+import Plus from '~icons/lucide/plus'
+import Trash from '~icons/lucide/trash'
 import AdminLayout from '@/components/layout/AdminLayout.vue'
 import MentorsReviewModal from '@/components/modals/MentorsReviewModal.vue'
 import { Button } from '@/components/ui/button'
@@ -7,10 +12,6 @@ import { Pagination, PaginationEllipsis, PaginationFirst, PaginationLast, Pagina
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useModal } from '@/composables/useModal'
 import { mentorsReviewService } from '@/services/mentorsReviewService'
-import { onMounted, onUnmounted, ref } from 'vue'
-import Pencil from '~icons/lucide/pencil'
-import Plus from '~icons/lucide/plus'
-import Trash from '~icons/lucide/trash'
 
 onMounted(mentorsReviewService.search)
 onUnmounted(mentorsReviewService.clearPagination)
@@ -33,9 +34,9 @@ function selectReview(reviewId: number) {
   <AdminLayout>
     <div class="space-y-6">
       <div class="flex justify-between items-center">
-        <h1 class="text-3xl font-bold">
+        <Typography variant="h2" as="h1">
           Отзывы на менторов
-        </h1>
+        </Typography>
         <Button @click="open">
           <Plus class="mr-2 h-4 w-4" />
           Добавить отзыв

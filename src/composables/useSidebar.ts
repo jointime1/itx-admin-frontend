@@ -1,5 +1,5 @@
-import type { Permission } from '@/types/permissions'
 import type { Component } from 'vue'
+import type { Permission } from '@/types/permissions'
 import { computed, ref } from 'vue'
 import FileText from '~icons/lucide/file-text'
 import Home from '~icons/lucide/home'

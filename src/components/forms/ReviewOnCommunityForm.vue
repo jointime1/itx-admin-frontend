@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import type { ReviewOnCommunityFormData } from '@/models/reviewOnCommunity'
+import { onMounted, ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { requiredRule, useFormValidation } from '@/composables/useFormValidation'
 import { formatDateToInput } from '@/lib/utils'
 import { reviewOnCommunityService } from '@/services/reviewOnCommunityService'
-import { onMounted, ref } from 'vue'
 import { toast } from '../ui/toast'
 
 const props = defineProps<{
@@ -85,10 +86,10 @@ function handleCancel() {
           id="authorTg"
           v-model="values.authorTg"
           placeholder="Введите tg участника"
-          :class="{ 'border-red-500': touched.authorTg && errors.authorTg }"
+          :class="{ 'border-destructive': touched.authorTg && errors.authorTg }"
           @blur="handleBlur('authorTg')"
         />
-        <p v-if="touched.authorTg && errors.authorTg" class="text-sm text-red-500">
+        <p v-if="touched.authorTg && errors.authorTg" class="text-sm text-destructive">
           {{ errors.authorTg }}
         </p>
       </div>
@@ -100,10 +101,10 @@ function handleCancel() {
           v-model="values.date"
           type="date"
           placeholder="Отзыв"
-          :class="{ 'border-red-500': touched.date && errors.date }"
+          :class="{ 'border-destructive': touched.date && errors.date }"
           @blur="handleBlur('text')"
         />
-        <p v-if="touched.date && errors.date" class="text-sm text-red-500">
+        <p v-if="touched.date && errors.date" class="text-sm text-destructive">
           {{ errors.date }}
         </p>
       </div>
@@ -113,10 +114,10 @@ function handleCancel() {
           id="text"
           v-model="values.text"
           placeholder="Отзыв"
-          :class="{ 'border-red-500': touched.text && errors.text }"
+          :class="{ 'border-destructive': touched.text && errors.text }"
           @blur="handleBlur('text')"
         />
-        <p v-if="touched.text && errors.text" class="text-sm text-red-500">
+        <p v-if="touched.text && errors.text" class="text-sm text-destructive">
           {{ errors.text }}
         </p>
       </div>

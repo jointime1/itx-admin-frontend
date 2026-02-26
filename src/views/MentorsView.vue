@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import type { Mentor } from '@/models/mentors'
+import { Tag, Typography } from 'itx-ui-kit'
+import { onMounted, onUnmounted, ref } from 'vue'
+import Pencil from '~icons/lucide/pencil'
+import Trash from '~icons/lucide/trash'
 import AdminLayout from '@/components/layout/AdminLayout.vue'
 import MentorModal from '@/components/modals/MentorModal.vue'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Pagination, PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, PaginationListItem, PaginationNext, PaginationPrev } from '@/components/ui/pagination'
+
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { mentorService } from '@/services/mentorService'
-import { onMounted, onUnmounted, ref } from 'vue'
-
-import Pencil from '~icons/lucide/pencil'
-import Trash from '~icons/lucide/trash'
 
 const isModalOpen = ref(false)
 const selectedMentor = ref<Mentor | null>(null)
@@ -33,9 +34,9 @@ onUnmounted(mentorService.clearPagination)
   <AdminLayout>
     <div class="space-y-6">
       <div class="flex justify-between items-center">
-        <h1 class="text-3xl font-bold">
+        <Typography variant="h2" as="h1">
           Менторы
-        </h1>
+        </Typography>
       </div>
       <Card>
         <CardContent>
@@ -63,13 +64,12 @@ onUnmounted(mentorService.clearPagination)
                 <TableCell>{{ mentor.experience }}</TableCell>
                 <TableCell>
                   <div class="flex flex-wrap gap-1">
-                    <span
+                    <Tag
                       v-for="tag in mentor.profTags"
                       :key="tag.id"
-                      class="px-2 py-1 text-xs rounded-full bg-primary/10"
                     >
                       {{ tag.title }}
-                    </span>
+                    </Tag>
                   </div>
                 </TableCell>
                 <TableCell class="text-right">

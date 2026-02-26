@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { Typography } from 'itx-ui-kit'
+import { ref, watchEffect } from 'vue'
 import AdminLayout from '@/components/layout/AdminLayout.vue'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { useCardReveal } from '@/composables/useCardReveal'
 import { usePermissions } from '@/composables/usePermissions'
 import { memberService } from '@/services/memberService'
 import { mentorService } from '@/services/mentorService'
-import { ref, watchEffect } from 'vue'
+
+const containerRef = ref<HTMLElement | null>(null)
+useCardReveal(containerRef)
 
 const mentorsCount = ref(0)
 const membersCount = ref(0)
@@ -24,13 +29,13 @@ watchEffect(async () => {
 
 <template>
   <AdminLayout>
-    <div class="space-y-6">
-      <h1 class="text-3xl font-bold">
+    <div ref="containerRef" class="space-y-6">
+      <Typography variant="h2" as="h1">
         Дашборд
-      </h1>
+      </Typography>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card v-permission="'can_view_admin_mentors'">
+        <Card v-permission="'can_view_admin_mentors'" data-reveal>
           <CardHeader>
             <CardTitle>Менторы</CardTitle>
             <CardDescription>Общее количество менторов в системе</CardDescription>
@@ -42,7 +47,7 @@ watchEffect(async () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card data-reveal>
           <CardHeader>
             <CardTitle>Участники</CardTitle>
             <CardDescription>Общее количество участников сообщества</CardDescription>

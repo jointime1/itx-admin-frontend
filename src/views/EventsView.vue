@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Label } from 'itx-ui-kit'
+import { Label, Typography } from 'itx-ui-kit'
 import { onMounted, onUnmounted, ref } from 'vue'
 import Pencil from '~icons/lucide/pencil'
 import Plus from '~icons/lucide/plus'
@@ -34,9 +34,9 @@ function selectEvent(entityId: number) {
   <AdminLayout>
     <div class="space-y-6">
       <div class="flex justify-between items-center">
-        <h1 class="text-3xl font-bold">
+        <Typography variant="h2" as="h1">
           События сообщества
-        </h1>
+        </Typography>
         <Button @click="open">
           <Plus class="mr-2 h-4 w-4" />
           Добавить событие

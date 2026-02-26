@@ -1,14 +1,15 @@
 <script lang="ts" setup>
 import type { Mentor, MentrosReviewFormData } from '@/models/mentors'
+import { onMounted, ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { requiredRule, useFormValidation } from '@/composables/useFormValidation'
 import { formatDateToInput } from '@/lib/utils'
 import { mentorService } from '@/services/mentorService'
 import { mentorsReviewService } from '@/services/mentorsReviewService'
-import { onMounted, ref } from 'vue'
 import { toast } from '../ui/toast'
 
 const props = defineProps<{
@@ -134,10 +135,10 @@ function handleCancel() {
           id="author"
           v-model="values.author"
           placeholder="Автор"
-          :class="{ 'border-red-500': touched.author && errors.author }"
+          :class="{ 'border-destructive': touched.author && errors.author }"
           @blur="handleBlur('author')"
         />
-        <p v-if="touched.author && errors.author" class="text-sm text-red-500">
+        <p v-if="touched.author && errors.author" class="text-sm text-destructive">
           {{ errors.author }}
         </p>
       </div>
@@ -149,10 +150,10 @@ function handleCancel() {
           v-model="values.date"
           type="date"
           placeholder="Отзыв"
-          :class="{ 'border-red-500': touched.date && errors.date }"
+          :class="{ 'border-destructive': touched.date && errors.date }"
           @blur="handleBlur('text')"
         />
-        <p v-if="touched.date && errors.date" class="text-sm text-red-500">
+        <p v-if="touched.date && errors.date" class="text-sm text-destructive">
           {{ errors.date }}
         </p>
       </div>
@@ -162,10 +163,10 @@ function handleCancel() {
           id="text"
           v-model="values.text"
           placeholder="Отзыв"
-          :class="{ 'border-red-500': touched.text && errors.text }"
+          :class="{ 'border-destructive': touched.text && errors.text }"
           @blur="handleBlur('text')"
         />
-        <p v-if="touched.text && errors.text" class="text-sm text-red-500">
+        <p v-if="touched.text && errors.text" class="text-sm text-destructive">
           {{ errors.text }}
         </p>
       </div>

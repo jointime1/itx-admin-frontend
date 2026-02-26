@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { ContactFormData } from '@/models/mentors'
+import { Plus, Trash2 } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Plus, Trash2 } from 'lucide-vue-next'
 
 const props = defineProps<{
   contacts: ContactFormData[]
@@ -92,7 +92,7 @@ function removeContact(index: number) {
           </TableRow>
         </TableBody>
       </Table>
-      <div v-else class="text-center py-4 text-gray-500">
+      <div v-else class="text-center py-4 text-muted-foreground">
         Нет добавленных контактов
       </div>
     </CardContent>
